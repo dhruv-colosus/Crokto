@@ -73,6 +73,9 @@ body {
   * {
     @apply border-border;
   }
+  html {
+    font-family: var(--font-raleway), "Inter";
+  }
   body {
     @apply bg-background text-foreground;
   }

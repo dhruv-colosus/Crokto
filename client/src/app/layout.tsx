@@ -13,6 +13,46 @@ const geistMono = localFont({
   weight: "100 900",
 });
 
+const raleway = localFont({
+  src: [
+    {
+      path: "./fonts/raleway/Raleway-Light.ttf",
+      weight: "300",
+      style: "normal",
+    },
+    {
+      path: "./fonts/raleway/Raleway-Regular.ttf",
+      weight: "400",
+      style: "normal",
+    },
+    {
+      path: "./fonts/raleway/Raleway-Regular.ttf",
+      weight: "500",
+      style: "normal",
+    },
+    {
+      path: "./fonts/raleway/Raleway-Medium.ttf",
+      weight: "600",
+      style: "normal",
+    },
+    {
+      path: "./fonts/raleway/Raleway-Bold.ttf",
+      weight: "700",
+      style: "normal",
+    },
+    {
+      path: "./fonts/raleway/Raleway-ExtraBold.ttf",
+      weight: "800",
+      style: "normal",
+    },
+    {
+      path: "./fonts/raleway/Raleway-Black.ttf",
+      weight: "900",
+      style: "normal",
+    },
+  ],
+  variable: "--font-raleway",
+});
 export const metadata: Metadata = {
   title: "Crokto",
   description: "The Decentralised Course Marketplace",
@@ -26,7 +66,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} ${raleway.variable} font-sans antialiased`}
       >
         {children}
       </body>
