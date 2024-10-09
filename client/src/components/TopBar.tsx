@@ -60,7 +60,7 @@ function TopBar() {
 
   return (
     <>
-      <header className="flex h-14 items-center gap-4 border-b bg-muted/40 px-4 lg:h-[80px] lg:px-6">
+      <header className="flex h-14 items-center gap-4 border-b bg-muted/40 px-4 lg:h-[60px] lg:px-6 min-h-[60px]">
         <Sheet>
           <SheetTrigger asChild>
             <Button

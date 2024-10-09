@@ -18,6 +18,7 @@ import {
   Globe,
 } from "lucide-react";
 import { AvatarIcon } from "@radix-ui/react-icons";
+import ReviewSection from "@/components/ReviewSection";
 
 interface CourseDetails {
   id: string;
@@ -191,6 +192,7 @@ export default async function CourseDetails({
                 ))}
               </div>
             </Card>
+            <ReviewSection />
           </div>
 
           {/* Sidebar - Right Section */}

@@ -13,6 +13,7 @@ import {
   Rocket,
 } from "lucide-react";
 import ChartComponent from "@/components/ActivityChart";
+import Link from "next/link";
 
 interface NFT {
   tokenId: string;
@@ -102,39 +103,46 @@ export default function MyCourses() {
               </div>
               <div className="grid md:grid-cols-2 gap-4">
                 {ongoingCourses.map((course) => (
-                  <Card
-                    key={course.id}
-                    className="hover:shadow-lg transition-shadow cursor-pointer"
-                  >
-                    <CardContent className="p-4  ">
-                      <div className=" flex flex-col justify-between gap-4">
-                        <div className="relative w-24 h-24">
-                          <img
-                            src="/images/authwall.jpg"
-                            alt={`NFT ${course.nft.tokenId}`}
-                            className="rounded-lg object-cover w-full h-full"
-                          />
-                          <Badge className="absolute -top-2 -right-2 bg-purple-100 text-purple-700">
-                            NFT {course.nft.tokenId}
-                          </Badge>
-                        </div>
+                  <Link href={`/mycourses/${course.id}`} key={course.id}>
+                    <Card
+                      key={course.id}
+                      className="hover:shadow-lg transition-shadow cursor-pointer"
+                    >
+                      <CardContent className="p-4  ">
+                        <div className=" flex flex-col justify-between gap-4">
+                          <div className="relative w-24 h-24">
+                            <img
+                              src="/images/authwall.jpg"
+                              alt={`NFT ${course.nft.tokenId}`}
+                              className="rounded-lg object-cover w-full h-full"
+                            />
+                            <Badge className="absolute -top-2 -right-2 bg-purple-100 text-purple-700">
+                              NFT {course.nft.tokenId}
+                            </Badge>
+                          </div>
 
-                        <div className="flex-1">
-                          <h3 className="font-semibold mb-2">{course.title}</h3>
-                          <div className="space-y-3">
-                            <Progress value={course.progress} className="h-2" />
-                            <div className="flex justify-between text-sm text-gray-600">
-                              <span>{course.progress}% complete</span>
-                              <span className="flex items-center gap-1">
-                                <Clock className="w-4 h-4" />
-                                {course.completedHours}/{course.totalHours}h
-                              </span>
+                          <div className="flex-1">
+                            <h3 className="font-semibold mb-2">
+                              {course.title}
+                            </h3>
+                            <div className="space-y-3">
+                              <Progress
+                                value={course.progress}
+                                className="h-2"
+                              />
+                              <div className="flex justify-between text-sm text-gray-600">
+                                <span>{course.progress}% complete</span>
+                                <span className="flex items-center gap-1">
+                                  <Clock className="w-4 h-4" />
+                                  {course.completedHours}/{course.totalHours}h
+                                </span>
+                              </div>
                             </div>
                           </div>
                         </div>
-                      </div>
-                    </CardContent>
-                  </Card>
+                      </CardContent>
+                    </Card>
+                  </Link>
                 ))}
               </div>
             </section>
