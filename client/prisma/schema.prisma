@@ -1,0 +1,63 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  email   String        @id @default(uuid())
+  wallet  String
+  courses UserCourses[]
+  ratings Rating[]
+}
+
+model Course {
+  id          String @id @default(uuid())
+  name        String
+  description String
+
+  users   UserCourses[]
+  quizzes Quiz[]
+
+  ratings Rating[]
+}
+
+model UserCourses {
+  id        String @id @default(uuid())
+  user      User   @relation(fields: [userEmail], references: [email])
+  userEmail String
+  course    Course @relation(fields: [courseId], references: [id])
+  courseId  String
+
+  boughtAt   DateTime @default(now())
+  quizScores Float[]
+}
+
+model Quiz {
+  id       String @id @default(uuid())
+  course   Course @relation(fields: [courseId], references: [id])
+  courseId String
+
+  questions Question[]
+}
+
+model Question {
+  id     String @id @default(uuid())
+  quiz   Quiz   @relation(fields: [quizId], references: [id])
+  quizId String
+
+  options       String[]
+  correctOption Int
+}
+
+model Rating {
+  id        String @id @default(uuid())
+  course    Course @relation(fields: [courseId], references: [id])
+  user      User   @relation(fields: [userEmail], references: [email])
+  value     Int
+  courseId  String
+  userEmail String
+}

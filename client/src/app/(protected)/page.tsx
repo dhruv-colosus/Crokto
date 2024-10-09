@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Rocket, Trophy, Sparkles, BookOpenCheck } from "lucide-react";
 import CourseCard from "@/components/CourseCard";
 import CategoriesSection from "@/components/Categories";
+
 export default function Home() {
   return (
     <div className="min-h-screen bg-gray-50">
