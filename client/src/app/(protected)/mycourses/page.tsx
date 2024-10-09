@@ -1,3 +1,5 @@
+"use client";
+
 import React from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -14,6 +16,9 @@ import {
 } from "lucide-react";
 import ChartComponent from "@/components/ActivityChart";
 import Link from "next/link";
+import { useAuthStore } from "@/store";
+import { useQuery } from "react-query";
+import { getUserCourses } from "@/actions/course";
 
 interface NFT {
   tokenId: string;
@@ -32,34 +37,45 @@ interface Course {
 }
 
 export default function MyCourses() {
-  const ongoingCourses: Course[] = [
-    {
-      id: "1",
-      title: "Advanced Ethereum Development",
-      progress: 65,
-      lastAccessed: "2 hours ago",
-      nft: {
-        tokenId: "#8234",
-        imageUrl: "/api/placeholder/400/400",
-      },
-      totalHours: 32,
-      completedHours: 20.8,
-      instructor: "Alex Thompson",
-    },
-    {
-      id: "2",
-      title: "Begineer Rust Development",
-      progress: 35,
-      lastAccessed: "51 hours ago",
-      nft: {
-        tokenId: "#8254",
-        imageUrl: "/api/placeholder/400/400",
-      },
-      totalHours: 32,
-      completedHours: 20.8,
-      instructor: "Alex Thompson",
-    },
-  ];
+  const { user } = useAuthStore();
+
+  const {
+    data: ongoingCourses,
+    isLoading,
+  } = useQuery("myCourses", {
+    queryFn: async () => getUserCourses(user!.email),
+  });
+
+  console.log(isLoading, ongoingCourses);
+
+  // const ongoingCourses: Course[] = [
+  //   {
+  //     id: "1",
+  //     title: "Advanced Ethereum Development",
+  //     progress: 65,
+  //     lastAccessed: "2 hours ago",
+  //     nft: {
+  //       tokenId: "#8234",
+  //       imageUrl: "/api/placeholder/400/400",
+  //     },
+  //     totalHours: 32,
+  //     completedHours: 20.8,
+  //     instructor: "Alex Thompson",
+  //   },
+  //   {
+  //     id: "2",
+  //     title: "Begineer Rust Development",
+  //     progress: 35,
+  //     lastAccessed: "51 hours ago",
+  //     nft: {
+  //       tokenId: "#8254",
+  //       imageUrl: "/api/placeholder/400/400",
+  //     },
+  //     totalHours: 32,
+  //     completedHours: 20.8,
+  //     instructor: "Alex Thompson",
+  //   },
+  // ];
 
   const completedCourses: Course[] = [
     {
@@ -102,48 +118,47 @@ export default function MyCourses() {
                 </h2>
               </div>
               <div className="grid md:grid-cols-2 gap-4">
-                {ongoingCourses.map((course) => (
-                  <Link href={`/mycourses/${course.id}`} key={course.id}>
-                    <Card
-                      key={course.id}
-                      className="hover:shadow-lg transition-shadow cursor-pointer"
-                    >
-                      <CardContent className="p-4  ">
-                        <div className=" flex flex-col justify-between gap-4">
-                          <div className="relative w-24 h-24">
-                            <img
-                              src="/images/authwall.jpg"
-                              alt={`NFT ${course.nft.tokenId}`}
-                              className="rounded-lg object-cover w-full h-full"
-                            />
-                            <Badge className="absolute -top-2 -right-2 bg-purple-100 text-purple-700">
-                              NFT {course.nft.tokenId}
-                            </Badge>
-                          </div>
+                {isLoading
+                  ? "Loading..."
+                  : ongoingCourses?.map((course) => (
+                      <Link href={`/mycourses/${course.id}`} key={course.id}>
+                        <Card
+                          key={course.id}
+                          className="hover:shadow-lg transition-shadow cursor-pointer"
+                        >
+                          <CardContent className="p-4  ">
+                            <div className=" flex flex-col justify-between gap-4">
+                              <div className="relative w-24 h-24">
+                                <img
+                                  src="/images/authwall.jpg"
+                                  alt={`NFT`}
+                                  className="rounded-lg object-cover w-full h-full"
+                                />
+                                <Badge className="absolute -top-2 -right-2 bg-purple-100 text-purple-700">
+                                  NFT #{4123}
+                                </Badge>
+                              </div>
 
-                          <div className="flex-1">
-                            <h3 className="font-semibold mb-2">
-                              {course.title}
-                            </h3>
-                            <div className="space-y-3">
-                              <Progress
-                                value={course.progress}
-                                className="h-2"
-                              />
-                              <div className="flex justify-between text-sm text-gray-600">
-                                <span>{course.progress}% complete</span>
-                                <span className="flex items-center gap-1">
-                                  <Clock className="w-4 h-4" />
-                                  {course.completedHours}/{course.totalHours}h
-                                </span>
+                              <div className="flex-1">
+                                <h3 className="font-semibold mb-2">
+                                  {course.title}
+                                </h3>
+                                <div className="space-y-3">
+                                  <Progress value={0} className="h-2" />
+                                  <div className="flex justify-between text-sm text-gray-600">
+                                    <span>{0}% complete</span>
+                                    <span className="flex items-center gap-1">
+                                      <Clock className="w-4 h-4" />
+                                      {0}/{42}
+                                    </span>
+                                  </div>
+                                </div>
                               </div>
                             </div>
-                          </div>
-                        </div>
-                      </CardContent>
-                    </Card>
-                  </Link>
-                ))}
+                          </CardContent>
+                        </Card>
+                      </Link>
+                    )) || "Error"}
               </div>
             </section>
 

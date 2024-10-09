@@ -31,6 +31,9 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { DialogDescription, DialogTrigger } from "@radix-ui/react-dialog";
+import { toast } from "sonner";
+import { createCourse } from "@/actions/course";
+import { useAuthStore } from "@/store";
 function Upload() {
   const [currentStep, setCurrentStep] = useState(1);
   const [courseData, setCourseData] = useState({
@@ -57,6 +60,7 @@ function Upload() {
   });
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [uploadOption, setUploadOption] = useState("draft");
+  const { user } = useAuthStore();
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -135,6 +139,7 @@ function Upload() {
     if (currentStep < 3) {
       setCurrentStep((prev) => prev + 1);
     } else {
+      handleUpload();
       setIsModalOpen(true);
     }
   };
@@ -150,8 +155,24 @@ function Upload() {
   };
 
   const handleUpload = () => {
+    // console.log(courseData);
     // Implement the upload logic here
     console.log("Uploading course:", { ...courseData, status: uploadOption });
+
+    toast("Uploading course...");
+    createCourse({
+      ...courseData,
+      status: uploadOption,
+      userEmail: user?.email,
+    } as any)
+      .then(() => {
+        toast("Course uploaded successfully");
+      })
+      .catch((e) => {
+        console.log(e);
+        toast.error("Error uploading course");
+      });
+
     setIsModalOpen(false);
   };
 

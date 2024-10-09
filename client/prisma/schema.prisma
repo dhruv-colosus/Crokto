@@ -12,17 +12,45 @@ model User {
   wallet  String
   courses UserCourses[]
   ratings Rating[]
+  Course  Course[]
 }
 
 model Course {
-  id          String @id @default(uuid())
-  name        String
-  description String
+  id         String @id @default(uuid())
+  title      String
+  subheading String
+  cost       String
+  discount   String
+  status     String
+  thumbnail  String
+  creator    User   @relation(fields: [creatorEmail], references: [email])
+
+  sections CourseSection[]
 
   users   UserCourses[]
   quizzes Quiz[]
 
-  ratings Rating[]
+  ratings      Rating[]
+  creatorEmail String
+}
+
+model CourseSection {
+  id       String @id @default(uuid())
+  course   Course @relation(fields: [courseId], references: [id])
+  courseId String
+
+  title       String
+  subsections CourseSubsections[]
+}
+
+model CourseSubsections {
+  id String @id @default(uuid())
+
+  title   String
+  content String
+
+  courseSection   CourseSection @relation(fields: [courseSectionId], references: [id])
+  courseSectionId String
 }
 
 model UserCourses {
@@ -34,12 +62,15 @@ model UserCourses {
 
   boughtAt   DateTime @default(now())
   quizScores Float[]
+
+  @@unique([userEmail, courseId])
 }
 
 model Quiz {
   id       String @id @default(uuid())
   course   Course @relation(fields: [courseId], references: [id])
   courseId String
+  title    String
 
   questions Question[]
 }
@@ -49,6 +80,7 @@ model Question {
   quiz   Quiz   @relation(fields: [quizId], references: [id])
   quizId String
 
+  question      String
   options       String[]
   correctOption Int
 }

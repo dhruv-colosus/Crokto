@@ -1,12 +1,23 @@
-import React from "react";
+"use client";
+
+import React, { useEffect } from "react";
 
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Button } from "@/components/ui/button";
 import { Rocket, Trophy, Sparkles, BookOpenCheck } from "lucide-react";
 import CourseCard from "@/components/CourseCard";
 import CategoriesSection from "@/components/Categories";
+import { useQuery } from "react-query";
+import { getCourses } from "@/actions/course";
+import getUsername from "@/util/getUsername";
 
 export default function Home() {
+  const { data: courses, isLoading } = useQuery("courses", {
+    queryFn: async () => getCourses(),
+  });
+
+  console.log(isLoading, courses);
+
   return (
     <div className="min-h-screen bg-gray-50">
       <div className="bg-gradient-to-r from-purple-700 to-blue-600 h-[300px] m-4 rounded-xl text-white p-8 flex items-center justify-between">
@@ -40,28 +51,23 @@ export default function Home() {
                 <h2 className="text-2xl font-bold">Top Courses</h2>
               </div>
               <div className="grid grid-cols-2 gap-4">
-                <CourseCard
-                  title="Advanced Ethereum Smart Contract Development"
-                  description="Master the art of building secure and efficient smart contracts with Solidity. Learn best practices, security patterns, and advanced concepts."
-                  students={2534}
-                  hours={15}
-                  price={199}
-                  discountedPrice={149}
-                  imageUrl="/images/authwall.jpg"
-                  badge="Bestseller"
-                  rating={4.8}
-                  instructor="Alex Thompson"
-                />
-                <CourseCard
-                  title="NFT Marketplace Development"
-                  description="Build your own NFT marketplace from scratch. Learn about ERC standards, metadata, and marketplace mechanics."
-                  students={1234}
-                  hours={12}
-                  price={149}
-                  rating={4.6}
-                  instructor="Sarah Chen"
-                  badge="Top Rated"
-                />
+                {isLoading
+                  ? "Loading..."
+                  : courses?.map((course) => (
+                      <CourseCard
+                        id={course.id}
+                        title={course.title}
+                        description={course.subheading}
+                        students={2534}
+                        hours={15}
+                        price={parseInt(course.cost)}
+                        discountedPrice={parseInt(course.discount)}
+                        imageUrl="/images/authwall.jpg"
+                        badge={"Bestseller"}
+                        rating={4.8}
+                        instructor={getUsername(course.creatorEmail)}
+                      />
+                    )) || "Error"}
               </div>
             </section>
 
@@ -73,6 +79,7 @@ export default function Home() {
               </div>
               <div className="grid grid-cols-2 gap-4">
                 <CourseCard
+                  id="1"
                   title="NFT Marketplace Development"
                   description="Build your own NFT marketplace from scratch. Learn about ERC standards, metadata, and marketplace mechanics."
                   students={1234}
@@ -92,6 +99,7 @@ export default function Home() {
               </div>
               <div className="grid grid-cols-2 gap-4">
                 <CourseCard
+                  id="1"
                   title="NFT Marketplace Development"
                   description="Build your own NFT marketplace from scratch. Learn about ERC standards, metadata, and marketplace mechanics."
                   students={1234}

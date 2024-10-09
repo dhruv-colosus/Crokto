@@ -14,6 +14,7 @@ import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { Button } from "./ui/button";
 interface CourseCardProps {
+  id: string;
   title: string;
   description: string;
   imageUrl?: string;
@@ -35,6 +36,7 @@ const formatStudentCount = (count: number): string => {
 const fallbackImage = "/images/authwall.jpg";
 
 const CourseCard: React.FC<CourseCardProps> = ({
+  id,
   title,
   description,
   imageUrl,
@@ -51,7 +53,7 @@ const CourseCard: React.FC<CourseCardProps> = ({
     <Card
       className="w-full hover:shadow-xl transition-all duration-300 group cursor-pointer flex flex-col justify-between"
       onClick={() => {
-        router.push("/course/1");
+        router.push(`/course/${id}`);
       }}
     >
       <div className="relative w-full h-[200px]">
