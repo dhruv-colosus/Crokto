@@ -1,10 +1,34 @@
+"use client";
+
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
+import { GoogleLogin } from "@react-oauth/google";
+import { OktoContextType, useOkto } from "okto-sdk-react";
+import { useAuthStore } from "@/store";
+import { useRouter } from "next/navigation";
+import { useEffect } from "react";
 
 export const description =
   "A login page with two columns. The first column has the login form with email and password. There's a Forgot your password link and a link to sign up if you do not have an account. The second column has a cover image.";
 
 export default function SignIn() {
+  const { logOut } = useOkto() as OktoContextType;
+  const { accessToken, setAccessToken, logout, _hasHydrated } = useAuthStore();
+  const router = useRouter();
+  useEffect(() => {
+    logOut();
+    useRouter;
+    logout();
+  }, [logOut, logout]);
+
+  useEffect(() => {
+    if (!_hasHydrated) return;
+
+    if (accessToken) {
+      router.replace("/");
+    }
+  }, [accessToken, router, _hasHydrated]);
+
   return (
     <div className="flex w-full h-screen overflow-hidden">
       <div className="flex items-center justify-center py-12 w-full lg:w-1/2">
@@ -15,10 +39,20 @@ export default function SignIn() {
               Login Through Google to create your account on Okto
             </p>
           </div>
-          <div className="grid gap-4">
-            <Button variant="default" className="w-full">
-              Sign In with Google
-            </Button>
+          <div className="flex justify-center">
+            <GoogleLogin
+              onSuccess={(credentialResponse) => {
+                if (!credentialResponse.credential) {
+                  console.log(credentialResponse);
+                  throw new Error("No access token");
+                }
+                setAccessToken(credentialResponse.credential);
+                router.replace("/");
+              }}
+              onError={() => {
+                console.log("Login Failed");
+              }}
+            />
           </div>
         </div>
       </div>

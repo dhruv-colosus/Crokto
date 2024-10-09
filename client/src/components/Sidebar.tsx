@@ -15,9 +15,12 @@ import {
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { usePathname } from "next/navigation";
+import { OktoContextType, useOkto } from "okto-sdk-react";
 
 function SideBar() {
   const pathname = usePathname();
+
+  const { showWidgetModal } = useOkto() as OktoContextType;
 
   const getLinkClass = (href: string) => {
     const baseClass =
@@ -99,11 +102,7 @@ function SideBar() {
                 </CardDescription> */}
               </CardHeader>
               <CardContent className="p-2 pt-0 md:p-4 md:pt-0">
-                <Button
-                  size="sm"
-                  className="w-full"
-                  onClick={() => console.log("Show Wallet")}
-                >
+                <Button size="sm" className="w-full" onClick={showWidgetModal}>
                   Show Wallet
                 </Button>
               </CardContent>
