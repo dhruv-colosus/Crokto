@@ -225,7 +225,7 @@ export default async function CourseDetails({
                 </div>
 
                 {/* CTA Button */}
-                <Button className="w-full py-6 text-lg bg-blue-600 hover:bg-blue-700">
+                <Button className="w-full py-6 text-md font-bold ">
                   Enroll Now
                 </Button>
 
