@@ -77,15 +77,24 @@ function SideBar() {
                   Creator Dasboard
                 </h2>
                 <div className="space-y-1">
-                  <Link href="/upload" className={getLinkClass("/upload")}>
+                  <Link
+                    href="/creator/upload"
+                    className={getLinkClass("/creator/upload")}
+                  >
                     <MonitorUp className="h-4 w-4" />
                     Upload Course
                   </Link>
-                  <Link href="/manage" className={getLinkClass("/manage")}>
+                  <Link
+                    href="/creator/manage"
+                    className={getLinkClass("/creator/manage")}
+                  >
                     <Binoculars className="h-4 w-4" />
                     Manage Courses
                   </Link>
-                  <Link href="/profile" className={getLinkClass("/profile")}>
+                  <Link
+                    href="/creator/profile"
+                    className={getLinkClass("/creator/profile")}
+                  >
                     <UserRound className="h-4 w-4" />
                     My Profile
                   </Link>
