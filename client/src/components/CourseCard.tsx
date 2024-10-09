@@ -12,6 +12,7 @@ import { Badge } from "@/components/ui/badge";
 import { Clock, Users, Star } from "lucide-react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
+import { Button } from "./ui/button";
 interface CourseCardProps {
   title: string;
   description: string;
@@ -48,7 +49,7 @@ const CourseCard: React.FC<CourseCardProps> = ({
   const router = useRouter();
   return (
     <Card
-      className="w-full hover:shadow-xl transition-all duration-300 group cursor-pointer"
+      className="w-full hover:shadow-xl transition-all duration-300 group cursor-pointer flex flex-col justify-between"
       onClick={() => {
         router.push("/course/1");
       }}
@@ -104,9 +105,9 @@ const CourseCard: React.FC<CourseCardProps> = ({
           </span>
         </div>
         <div className="flex items-center justify-between w-full">
-          <div className="flex items-center space-x-2">
-            {discountedPrice ? (
-              <>
+          {discountedPrice ? (
+            <div className="w-full flex justify-between ">
+              <div className="flex items-center space-x-2">
                 <span className="font-bold text-lg">${discountedPrice}</span>
                 <span className="text-sm text-muted-foreground line-through">
                   ${price}
@@ -114,11 +115,15 @@ const CourseCard: React.FC<CourseCardProps> = ({
                 <Badge variant="destructive" className="ml-2">
                   {Math.round(((price - discountedPrice) / price) * 100)}% OFF
                 </Badge>
-              </>
-            ) : (
+              </div>
+              <Button variant={"default"}>Buy Now</Button>
+            </div>
+          ) : (
+            <div className="w-full flex justify-between ">
               <span className="font-bold text-lg">${price}</span>
-            )}
-          </div>
+              <Button variant={"default"}>Buy Now</Button>
+            </div>
+          )}
         </div>
       </CardFooter>
     </Card>

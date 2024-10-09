@@ -1,6 +1,7 @@
 "use client";
 import Link from "next/link";
 import {
+  BookOpenCheck,
   Cannabis,
   CirclePlus,
   CircleUser,
@@ -36,7 +37,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { usePathname, useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 interface SearchResult {
   email: string;
@@ -77,27 +78,31 @@ function TopBar() {
                 href="/"
                 className="flex items-center gap-2 text-lg font-semibold"
               >
-                <Cannabis className="h-6 w-6" />
+                <BookOpenCheck className="h-6 w-6" />
                 <span className="sr-only">OktoGram</span>
               </Link>
               <Link href="/" className={getLinkClass("/")}>
                 <Home className="h-5 w-5" />
-                Home
+                All Courses
               </Link>
               <Link href="/giveaways" className={getLinkClass("/giveaways")}>
                 <Gift className="h-5 w-5" />
-                Giveaways
+                My Courses
                 <Badge className="ml-auto flex h-6 w-6 shrink-0 items-center justify-center rounded-full">
                   6
                 </Badge>
               </Link>
               <Link href="/explore" className={getLinkClass("/explore")}>
                 <Package className="h-5 w-5" />
-                Explore
+                My Tasks
               </Link>
               <Link href="/create" className={getLinkClass("/create")}>
                 <CirclePlus className="h-5 w-5" />
-                Create post
+                Upload Course
+              </Link>
+              <Link href="/profile" className={getLinkClass("/profile")}>
+                <Settings className="h-5 w-5" />
+                Manage Coruse
               </Link>
               <Link href="/profile" className={getLinkClass("/profile")}>
                 <Settings className="h-5 w-5" />
