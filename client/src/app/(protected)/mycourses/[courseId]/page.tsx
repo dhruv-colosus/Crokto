@@ -12,6 +12,7 @@ import { BookOpen, PlayCircle } from "lucide-react";
 import { courseContent } from "@/data/mockCourse";
 import ReviewSection from "@/components/ReviewSection";
 import { Button } from "@/components/ui/button";
+import Link from "next/link";
 
 const CoursePage = () => {
   const [activeSection, setActiveSection] = useState<string>("");
@@ -114,7 +115,9 @@ const CoursePage = () => {
           </Accordion>
         </ScrollArea>
         <div className="items-center flex justify-center w-full">
-          <Button className="w-full mx-6">Final Test</Button>
+          <Link href="/mytasks/1" className="w-full mx-6">
+            <Button className="w-full ">Final Test</Button>
+          </Link>
         </div>
       </div>
     </div>
