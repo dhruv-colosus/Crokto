@@ -11,7 +11,7 @@ export default function ProtectedLayout({
   return (
     <div className="flex h-screen w-full overflow-hidden">
       <Sidebar />
-      <div className="flex flex-col flex-grow">
+      <div className="flex flex-col flex-grow w-full">
         <TopBar />
         <div className="flex-grow overflow-auto no-scrollbar">
           <main className="h-full">{children}</main>

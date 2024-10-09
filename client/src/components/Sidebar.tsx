@@ -2,16 +2,12 @@
 
 import Link from "next/link";
 import {
-  Badge,
   Bell,
   Binoculars,
   BookHeart,
   BookOpenCheck,
-  Gift,
-  Home,
   ListTodo,
   MonitorUp,
-  Package,
   SquareLibrary,
   UserRound,
 } from "lucide-react";
@@ -34,7 +30,7 @@ function SideBar() {
 
   return (
     <>
-      <div className="hidden border-r bg-muted/40 md:block h-screen   ">
+      <div className="hidden border-r bg-muted/40 md:block h-screen w-[20%]  ">
         <div className="flex h-full max-h-screen flex-col gap-2">
           <div className="flex h-14 items-center px-4 lg:h-[60px] lg:px-6">
             <Link href="/" className="flex items-center gap-2 font-semibold">
