@@ -6,6 +6,8 @@ Crokto is a Next.js application that integrates Shadcn for UI components, Okto W
 
 
 
+## Demo Video : [Link](https://www.loom.com/share/a2b19a0ee2504d3d9934c5d3e641d71a?sid=b4e40d0a-6523-43f2-b948-378cc51d9187) 
+
 ## Features
 
 - **Modern UI**: An application built using the best modern UI practices.
